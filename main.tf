@@ -16,7 +16,7 @@ module "gcs-bucket" {
   source = "./modules/storage"
 }
 
-#ensures all APIs required are enabled
+#ensures all required APIs are enabled
 resource "google_project_service" "enabled_apis" {
   for_each           = toset(local.services)
   project            = var.project_id
@@ -28,7 +28,6 @@ resource "google_compute_network" "mynetwork" {
   depends_on = [google_project_service.enabled_apis]
   name                    = "mynetwork"
   auto_create_subnetworks = "true"
-  #ensures Compute Engine API is enabled whih is required for VPC creation
 }
 
 module "vpc" {
@@ -53,7 +52,15 @@ module "vpc" {
   ]
 }
 
-
+resource "google_compute_firewall" "tf-firewall" {
+  name = "tf-firewall"
+  network = "projects/tltestlab-project3/global/networks/mynetwork"
+  allow {
+    protocol = "tcp"
+    ports    = ["80"]
+  }
+  source_ranges = ["0.0.0.0/0"]
+}
 
 #uncomment this import block to map the import of a manually created GCE instance to the Terraform resource
 #import {
