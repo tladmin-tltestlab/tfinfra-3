@@ -8,28 +8,52 @@ locals {
 
 module "vm-instances" {
   source           = "./modules/instances"
-  zone    = "europe-west3-a"
+  zone             = "europe-west3-a"
   instance_network = google_compute_network.mynetwork.self_link
 }
 
 module "gcs-bucket" {
-  source           = "./modules/storage"
+  source = "./modules/storage"
 }
 
 #ensures all APIs required are enabled
 resource "google_project_service" "enabled_apis" {
-  for_each = toset(local.services)
-  project = "tltestlab-project3"
-  service = each.key
+  for_each           = toset(local.services)
+  project            = var.project_id
+  service            = each.key
   disable_on_destroy = false
 }
 
 resource "google_compute_network" "mynetwork" {
-  name = "mynetwork"
+  depends_on = [google_project_service.enabled_apis]
+  name                    = "mynetwork"
   auto_create_subnetworks = "true"
   #ensures Compute Engine API is enabled whih is required for VPC creation
-  depends_on = [google_project_service.enabled_apis]
 }
+
+module "vpc" {
+  source       = "terraform-google-modules/network/google"
+  version      = "~> 10.0.0"
+  depends_on   = [google_project_service.enabled_apis]
+  project_id   = var.project_id
+  network_name = "test-vpc"
+  routing_mode = "GLOBAL"
+
+  subnets = [
+    {
+      subnet_name   = "subnet-01"
+      subnet_ip     = "10.10.10.0/24"
+      subnet_region = "europe-west3"
+    },
+    {
+      subnet_name   = "subnet-02"
+      subnet_ip     = "10.10.20.0/24"
+      subnet_region = "europe-west3"
+    }
+  ]
+}
+
+
 
 #uncomment this import block to map the import of a manually created GCE instance to the Terraform resource
 #import {
