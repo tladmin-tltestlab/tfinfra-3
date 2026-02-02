@@ -15,7 +15,7 @@ locals {
 #ensures all APIs required are enabled
 resource "google_project_service" "enabled_apis" {
   for_each = toset(local.services)
-  project = "testlab-project3"
+  project = "tltestlab-project3"
   service = each.key
   disable_on_destroy = false
 }
