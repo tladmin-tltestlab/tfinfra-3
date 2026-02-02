@@ -10,5 +10,5 @@ variable "zone" {
   default = "europe-west3-a"
 }
 variable "project_id" {
-  default = "tltestlab-project1"
+  default = "tltestlab-project3"
 }
