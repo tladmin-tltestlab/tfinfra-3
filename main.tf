@@ -12,6 +12,10 @@ module "vm-instances" {
   instance_network = google_compute_network.mynetwork.self_link
 }
 
+module "gcs-bucket" {
+  source           = "./modules/storage"
+}
+
 #ensures all APIs required are enabled
 resource "google_project_service" "enabled_apis" {
   for_each = toset(local.services)
