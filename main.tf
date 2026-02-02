@@ -7,7 +7,7 @@ locals {
 }
 
 module "vm-instances" {
-  source           = "./instances"
+  source           = "./modules/instances"
   zone    = "europe-west3-a"
   instance_network = google_compute_network.mynetwork.self_link
 }
