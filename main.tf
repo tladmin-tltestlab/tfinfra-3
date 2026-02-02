@@ -26,3 +26,10 @@ resource "google_compute_network" "mynetwork" {
   #ensures Compute Engine API is enabled whih is required for VPC creation
   depends_on = [google_project_service.enabled_apis]
 }
+
+#uncomment this import block to map the import of a manually created GCE instance to the Terraform resource
+import {
+  # The path is module.<MODULE_NAME>.<RESOURCE_TYPE>.<RESOURCE_NAME>
+  to = module.vm-instances.google_compute_instance.manual_vm-1
+  id = "projects/tltestlab-project3/zones/europe-west3-a/instances/tf-instance-1"
+}

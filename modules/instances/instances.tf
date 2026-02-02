@@ -18,9 +18,5 @@ resource "google_compute_instance" "manual_vm-1" {
   # ... define the rest of the config to match the real resource ...
 }
 
-#uncomment this import block to map the import of a manually created GCE instance to the Terraform resource
-import {
-  to = google_compute_instance.manual_vm-1
-  id = "projects/testlab-project3/zones/europe-west3-a/instances/tf-instance-1"
-}
+
 
