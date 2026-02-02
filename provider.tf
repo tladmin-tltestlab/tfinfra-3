@@ -31,5 +31,7 @@ terraform {
 
 provider "google" {
   project = "tltestlab-project3"
+  region  = "europe-west3"   #temporarily added to test a qwiklab concept
+  zone    = "europe-west3-a" #temporarily added to test a qwiklab concept
   # TFC automatically handles the auth using the Spoke SA now.
 }
