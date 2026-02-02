@@ -5,7 +5,7 @@ resource "google_compute_instance" "manual_vm-1" {
   machine_type = "e2-micro"
   boot_disk {
     initialize_params {
-      image = "debian-cloud/debian-11"
+      image = "debian-cloud/debian-12"
     }
   }
   network_interface {
@@ -18,24 +18,24 @@ resource "google_compute_instance" "manual_vm-1" {
   # ... define the rest of the config to match the real resource ...
 }
 
-resource "google_compute_instance" "manual_vm-2" {
-  name         = "tf-instance-2"
-  zone         = var.zone
-  machine_type = "e2-micro"
-  boot_disk {
-    initialize_params {
-      image = "debian-cloud/debian-11"
-    }
-  }
-  network_interface {
-    network = var.instance_network
-  }
-  metadata_startup_script = <<-EOT
-        #!/bin/bash
-    EOT
-  allow_stopping_for_update = true
-  # ... define the rest of the config to match the real resource ...
-}
+# resource "google_compute_instance" "manual_vm-2" {
+#  name         = "tf-instance-2"
+#  zone         = var.zone
+#  machine_type = "e2-micro"
+#  boot_disk {
+#    initialize_params {
+#      image = "debian-cloud/debian-11"
+#    }
+#  }
+#  network_interface {
+#    network = var.instance_network
+#  }
+#  metadata_startup_script = <<-EOT
+#        #!/bin/bash
+#    EOT
+#  allow_stopping_for_update = true
+#  # ... define the rest of the config to match the real resource ...
+#}
 
 
 
