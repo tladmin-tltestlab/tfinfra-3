@@ -6,11 +6,11 @@ locals {
   ]
 }
 
-#module "vm-instances" {
-#  source           = "./instances"
-#  zone    = "europe-west3-a"
-#  instance_network = google_compute_network.mynetwork.self_link
-#}
+module "vm-instances" {
+  source           = "./modules/instances"
+  zone    = "europe-west3-a"
+  instance_network = google_compute_network.mynetwork.self_link
+}
 
 #ensures all APIs required are enabled
 resource "google_project_service" "enabled_apis" {
