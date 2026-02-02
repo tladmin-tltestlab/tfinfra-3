@@ -1,5 +1,6 @@
 #uncomment this resource block to create a resource for the manually created GCE instance
 resource "google_compute_instance" "manual_vm-1" {
+  count = var.enable_compute_lab ? 1 : 0
   name         = "tf-instance-1"
   zone         = var.zone
   machine_type = "e2-micro"
