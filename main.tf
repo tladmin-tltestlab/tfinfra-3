@@ -60,6 +60,7 @@ resource "google_compute_firewall" "tf-firewall" {
     ports    = ["80"]
   }
   source_ranges = ["0.0.0.0/0"]
+  target_tags   = ["web-server"] # Only apply to VMs with this tag
 }
 
 #uncomment this import block to map the import of a manually created GCE instance to the Terraform resource
