@@ -1,7 +1,7 @@
 variable "enable_compute_lab" {
   description = "Toggle to enable/disable the compute lab resources"
   type        = bool
-  default     = false
+  default     = true
 }
 
 variable "instance_network" {}
